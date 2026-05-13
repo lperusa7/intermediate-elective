@@ -169,19 +169,186 @@ val_nonnative_2024 <- cover_summary |>
 
 # build title text with inline color styling - taken from inspiration
 title_text <- glue(
-  "<span style='font-weight:900; color:{col_native};'>Natives rise.&nbsp;</span>",
-  "<span style='font-weight:900; color:{col_nonnative};'>Non-natives persist.</span>"
+  "<span style='font-weight:900; color:{col_native};'>Natives rise. </span>",
+  "<span style='font-weight:900; color:{col_nonnative};'>Non-natives surge.</span>"
 )
 
 # build subtitle text - taken from inspiration
 subtitle_text <- glue(
   "<span style='font-size:10pt; font-weight:400; color:{text_sub};'>",
-  "Mean percent cover of native and non-native vegetation · NCOS · 2021-2025",
+  "Mean percent cover of native and non-native vegetation at the North Campus<br>",
+  "Open Space at UCSB · 2021-2025",
   "</span>"
 )
 
 # caption text
 caption_text <- "Source: NCOS Vegetation Monitoring Data"
+```
+
+### Plot
+
+```{r}
+#| label: plot
+#| warning: false
+#| fig-width: 6
+#| fig-height: 7
+
+# build main plot - structure taken directly from inspiration
+p <- cover_summary |>
+  ggplot(aes(x = year, y = mean_pc, color = cover_category, group = cover_category)) +
+  
+  # Geom
+  # manual horizontal grid lines - taken from inspiration
+  geom_hline(
+    yintercept = seq(0, 80, by = 20),
+    color = grid_color,
+    linewidth = 0.25
+  ) +
+  # native cover line - heavier weight, taken from inspiration
+  geom_line(
+    data = cover_summary |> filter(cover_category == "NATIVE COVER"),
+    linewidth = 1.9,
+    alpha = 1.0
+  ) +
+  # non-native cover line - lighter weight, taken from inspiration
+  geom_line(
+    data = cover_summary |> filter(cover_category == "NON-NATIVE COVER"),
+    linewidth = 1.3,
+    alpha = 0.80
+  ) +
+  # open circle at start year 2021 - taken from inspiration
+  geom_point(
+    data = cover_summary |> filter(year == 2021),
+    size = 3.5, shape = 21, fill = bg_color, stroke = 1.8
+  ) +
+  # open circle at end year 2025 - taken from inspiration
+  geom_point(
+    data = cover_summary |> filter(year == 2025),
+    size = 3.5, shape = 21, fill = bg_color, stroke = 1.8
+  ) +
+  
+  # Annotate
+  # dotted vertical line at native cover peak (2023) - taken from inspiration
+  annotate(
+    "segment",
+    x = 2023, xend = 2023,
+    y = 0, yend = val_native_2023 - 3,
+    color = col_native,
+    linewidth = 0.5,
+    linetype = "dotted"
+  ) +
+  # text annotation for native cover peak - taken from inspiration
+  annotate(
+    "text",
+    x = 2022.9,
+    y = val_native_2023 - 7,
+    label = glue("Native peak\n2023: {val_native_2023}%"),
+    hjust = 1,
+    size = 2,
+    color = col_native,
+    lineheight = 1.1
+  ) +
+  # dotted vertical line at non-native cover peak (2024) - taken from inspiration
+  annotate(
+    "segment",
+    x = 2024, xend = 2024,
+    y = 0, yend = val_nonnative_2024 - 3,
+    color = col_nonnative,
+    linewidth = 0.5,
+    linetype = "dotted"
+  ) +
+  # text annotation for non-native cover peak - taken from inspiration
+  annotate(
+    "text",
+    x = 2023.9,
+    y = val_nonnative_2024 - 10,
+    label = glue("Non-native peak\n2024: {val_nonnative_2024}%"),
+    hjust = 1,
+    size = 2,
+    color = col_nonnative,
+    lineheight = 1.1
+  ) +
+  # direct line labels at 2025 endpoint - taken from inspiration
+  annotate(
+    "text",
+    x = 2025.15,
+    y = c(val_native_2025, val_nonnative_2025),
+    label = c(
+      glue("Native\n{val_native_2025}%"),
+      glue("Non-native\n{val_nonnative_2025}%")
+    ),
+    hjust = 0, vjust = 0.5, size = 2.6,
+    color = c(col_native, col_nonnative),
+    lineheight = 1.15
+  ) +
+  
+  # Scales
+  # map colors to cover categories - taken from inspiration
+  scale_color_manual(
+    values = c("NATIVE COVER" = col_native, "NON-NATIVE COVER" = col_nonnative)
+  ) +
+  # x-axis: expand right to make room for direct labels - taken from inspiration
+  scale_x_continuous(
+    breaks = 2021:2025,
+    expand = expansion(mult = c(0.03, 0.28))
+  ) +
+  # y-axis: percent labels - taken from inspiration
+  scale_y_continuous(
+    limits = c(0, 80),
+    breaks = seq(0, 80, by = 20),
+    labels = \(x) glue("{x}%"),
+    expand = expansion(mult = c(0.01, 0.04))
+  ) +
+  
+  # Labs
+  # two-color styled title and subtitle using glue objects - taken from inspiration
+  labs(
+    title    = title_text,
+    subtitle = subtitle_text,
+    caption  = caption_text,
+    x = NULL,
+    y = NULL
+  ) +
+  
+  # Theme
+  theme_void() +
+  theme(
+    # dark navy background - taken from inspiration
+    plot.background  = element_rect(fill = bg_color, color = NA),
+    panel.background = element_rect(fill = bg_color, color = NA),
+    # styled two-color title using ggtext - taken from inspiration
+    plot.title = element_markdown(
+      size = 22, color = text_white, hjust = 0,
+      lineheight = 1.1, margin = margin(t = 10, b = 6)
+    ),
+    # subtitle as markdown to allow color styling - taken from inspiration
+    plot.subtitle = element_markdown(
+      size = 10, color = text_sub, hjust = 0,
+      lineheight = 1.4, margin = margin(b = 22)
+    ),
+    # caption styling - taken from inspiration
+    plot.caption = element_text(
+      size = 7, color = text_muted, hjust = 1,
+      margin = margin(t = 14)
+    ),
+    # axis text styling - taken from inspiration
+    axis.text.x = element_text(
+      size = 9, color = text_muted, margin = margin(t = 6)
+    ),
+    axis.text.y = element_text(
+      size = 8, color = text_muted, hjust = 1
+    ),
+    # remove axis lines, ticks, and grid - taken from inspiration
+    axis.line   = element_blank(),
+    axis.ticks  = element_blank(),
+    panel.grid  = element_blank(),
+    # remove legend since we use direct labels - taken from inspiration
+    legend.position = "none",
+    # expanded right margin for direct labels - taken from inspiration
+    plot.margin = margin(t = 20, r = 80, b = 16, l = 20)
+  )
+
+p
 ```
 
 
