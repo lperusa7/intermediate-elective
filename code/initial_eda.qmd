@@ -4,9 +4,15 @@ author: "Lukas Lescano"
 format: pdf
 ---
 
-# Set Up
+# Problem 1: Explain Your Inspiration
 
-## Packages
+# Problem 2: Plan Your Figure
+
+# Problem 3: Code Your Figure
+
+## Set Up
+
+### Packages
 
 ```{r}
 #| label: packages
@@ -33,7 +39,7 @@ library(glue)
 library(scales)
 ```
 
-## Data
+### Data
 
 ```{r}
 #| label: reading in packages
@@ -43,11 +49,13 @@ veg <- read_csv(here("data", "raw", "veg.csv"))
 metadata <- read_csv(here("data", "raw", "vp_veg_metadata.csv"))
 ```
 
-# 1. Exploring the Data
+## 1. Exploring the Data
 
-# 2. Wranlging Data
+## 2. Wranlging Data
 
-# 3. Visualization
+## 3. Visualization
 
-# 4. Saving Figure
+## 4. Saving Figure
+
+# Problem 4: Describe Your Process
 
