@@ -6,6 +6,18 @@ format: pdf
 
 # Problem 1: Explain Your Inspiration
 
+## Which visualization:
+
+For this elective, I chose Steven Ponce's "Coal falls. Renewables rise." plot for my inspiration, which is a line plot tracking the share of coal and renewable electricity generation in China from 2000 to 2023.
+
+## Why it makes sense:
+
+This visualization makes sense for the NCOS vegetation dataset because both share the same underlying structure which is having two main competing categories measured as a percentage over time. Just as coal and renewables represent opposing forces in energy generation, native and non-native plant cover represent opposing forces of the ecological health at NCOS.
+
+## Which variables:
+
+The visualization will use `year` (2021 - 2025), `cover_category` (native vs. non-native), and `mean_pc` (which I will calculate using the `percent_cover` column). Year will be mapped on the x-axis, Mean Percent Cover will be mapped on the y-axis, and cover category will be the color, which I plan to use green for native cover and red for non-native cover. Overall, this will mirror the two line structure from the inspiration figure.
+
 # Problem 2: Plan Your Figure
 
 # Problem 3: Code Your Figure
