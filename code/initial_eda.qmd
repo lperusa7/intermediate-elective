@@ -65,7 +65,7 @@ veg <- read_csv(here("data", "raw", "veg.csv"))
 metadata <- read_csv(here("data", "raw", "vp_veg_metadata.csv"))
 ```
 
-## 1. Exploring the Data
+## a. Exploring the Data
 
 ```{r}
 #| label: exploring structure
@@ -93,11 +93,40 @@ gg_miss_var(veg)
 gg_miss_var(metadata)
 ```
 
-## 2. Wrangling Data
+## b. Wrangling Data
 
-## 3. Visualization
+```{r}
+#| label: wrangling
+#| message: false
+#| warning: false
 
-## 4. Saving Figure
+# creating new object from veg
+cover_explicit0 <- veg |>
+  # filter to native and non-native cover only
+  filter(cover_category %in% c("NATIVE COVER", "NON-NATIVE COVER")) |>
+  # group by year, transect, and cover category
+  group_by(year, transect_name, cover_category) |>
+  # sum percent cover across all quadrats per transect per year
+  summarise(sum_pc = sum(percent_cover, na.rm = TRUE), .groups = "drop") |>
+  # combine year and transect for joining with metadata
+  unite("year_pool", year, transect_name, remove = FALSE) |>
+  # join only num_quad from metadata
+  left_join(metadata |> select(year_pool, num_quad), by = "year_pool") |>
+  # calculate mean percent cover as total / number of quadrats
+  mutate(mean_pc = sum_pc / num_quad)
+
+# summarise mean percent cover by year across all transects
+cover_summary <- cover_explicit0 |>
+  group_by(year, cover_category) |>
+  summarise(mean_pc = mean(mean_pc, na.rm = TRUE), .groups = "drop")
+
+# check result
+cover_summary
+```
+
+## c. Visualization
+
+## d. Saving Figure
 
 # Problem 4: Describe Your Process
 
