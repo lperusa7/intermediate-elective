@@ -4,3 +4,37 @@ author: "Lukas Lescano"
 format: pdf
 ---
 
+# Set Up
+
+## Packages
+
+```{r}
+#| label: packages
+#| message: false
+#| warning: false
+
+# data wrangling
+library(tidyverse)
+
+# file organization
+library(here)
+
+# styled text in ggplot (colored title, markdown)
+library(ggtext)
+
+# string interpolation for annotations and labels
+library(glue)
+
+# clean axis label formatting (percent signs etc.)
+library(scales)
+```
+
+## Data
+
+```{r}
+#| label: reading in packages
+
+veg <- read_csv(here("data", "raw", "veg.csv"))
+
+metadata <- read_csv(here("data", "raw", "vp_veg_metadata.csv"))
+```
