@@ -1,0 +1,6 @@
+---
+title: "Exploratory Data Analysis"
+author: "Lukas Lescano"
+format: pdf
+---
+
