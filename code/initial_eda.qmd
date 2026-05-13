@@ -96,7 +96,7 @@ gg_miss_var(metadata)
 ## b. Wrangling Data
 
 ```{r}
-#| label: wrangling
+#| label: wrangling data
 #| message: false
 #| warning: false
 
@@ -125,6 +125,65 @@ cover_summary
 ```
 
 ## c. Visualization
+
+### Paramaters
+
+```{r}
+#| label: visualization parameters
+#| message: false
+#| warning: false
+
+# define colors - taken directly from inspiration plot
+bg_color      <- "#0D1B2A"   # dark navy background
+col_native    <- "#4CAF7D"   # green for native cover
+col_nonnative <- "#E8503A"   # red for non-native cover
+text_white    <- "#FFFFFF"   # white for title text
+text_muted    <- "#8A98A8"   # muted blue-grey for axis text
+text_sub      <- "#B0B8C4"   # lighter muted for subtitle
+grid_color    <- "#1A2E42"   # dark blue for manual grid lines
+accent_coral  <- "#E8503A"   # accent color for annotation lines
+
+# extract 2025 endpoint value from native for direct line labels
+val_native_2025 <- cover_summary |>
+  filter(year == 2025, cover_category == "NATIVE COVER") |>
+  pull(mean_pc) |>
+  round(1)
+
+# extract 2025 endpoint value from non-native for direct line labels
+val_nonnative_2025 <- cover_summary |>
+  filter(year == 2025, cover_category == "NON-NATIVE COVER") |>
+  pull(mean_pc) |>
+  round(1)
+
+# extract peak value from native for annotation lines
+val_native_2023 <- cover_summary |>
+  filter(year == 2023, cover_category == "NATIVE COVER") |>
+  pull(mean_pc) |>
+  round(1)
+
+# extract peak value from non-native for annotation lines
+val_nonnative_2024 <- cover_summary |>
+  filter(year == 2024, cover_category == "NON-NATIVE COVER") |>
+  pull(mean_pc) |>
+  round(1)
+
+# build title text with inline color styling - taken from inspiration
+title_text <- glue(
+  "<span style='font-weight:900; color:{col_native};'>Natives rise.&nbsp;</span>",
+  "<span style='font-weight:900; color:{col_nonnative};'>Non-natives persist.</span>"
+)
+
+# build subtitle text - taken from inspiration
+subtitle_text <- glue(
+  "<span style='font-size:10pt; font-weight:400; color:{text_sub};'>",
+  "Mean percent cover of native and non-native vegetation · NCOS · 2021-2025",
+  "</span>"
+)
+
+# caption text
+caption_text <- "Source: NCOS Vegetation Monitoring Data"
+```
+
 
 ## d. Saving Figure
 
