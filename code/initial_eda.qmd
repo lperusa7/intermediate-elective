@@ -38,3 +38,12 @@ veg <- read_csv(here("data", "raw", "veg.csv"))
 
 metadata <- read_csv(here("data", "raw", "vp_veg_metadata.csv"))
 ```
+
+# 1. Exploring the Data
+
+# 2. Wranlging Data
+
+# 3. Visualization
+
+# 4. Saving Figure
+
