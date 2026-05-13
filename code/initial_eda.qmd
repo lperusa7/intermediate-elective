@@ -15,12 +15,16 @@ format: pdf
 
 # data wrangling
 library(tidyverse)
+library(janitor)
 
 # file organization
 library(here)
 
 # styled text in ggplot (colored title, markdown)
 library(ggtext)
+
+# custom font loading
+library(showtext)
 
 # string interpolation for annotations and labels
 library(glue)
