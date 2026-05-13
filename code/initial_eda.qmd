@@ -20,6 +20,8 @@ The visualization will use `year` (2021 - 2025), `cover_category` (native vs. no
 
 # Problem 2: Plan Your Figure
 
+![Sketch of figure](../outputs/ENVS_193DD_Intermediate_Elective_Problem2_Sketch.jpg)
+
 # Problem 3: Code Your Figure
 
 ## Set Up
