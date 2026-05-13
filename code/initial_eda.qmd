@@ -39,6 +39,9 @@ library(tidyverse)
 # file organization
 library(here)
 
+# exploring missing data
+library(naniar)
+
 # styled text in ggplot (colored title, markdown)
 library(ggtext)
 
@@ -63,6 +66,32 @@ metadata <- read_csv(here("data", "raw", "vp_veg_metadata.csv"))
 ```
 
 ## 1. Exploring the Data
+
+```{r}
+#| label: exploring structure
+#| message: false
+#| warning: false
+#| results: hide
+
+# examine structure of both datasets
+glimpse(veg)
+glimpse(metadata)
+```
+
+```{r}
+#| label: exploring unique and NAs
+#| message: false
+#| warning: false
+#| results: hide
+
+# check unique values in character columns for both datasets
+veg |> select(where(is.character)) |> map(unique)
+metadata |> select(where(is.character)) |> map(unique)
+
+# visualize missing data patterns in both datasets
+gg_miss_var(veg)
+gg_miss_var(metadata)
+```
 
 ## 2. Wrangling Data
 
