@@ -1,7 +1,13 @@
 ---
 title: "Exploratory Data Analysis"
 author: "Lukas Lescano"
-format: pdf
+format: 
+  pdf:
+    include-in-header: 
+       text: |
+         \usepackage{fvextra}
+         \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
+         \DefineVerbatimEnvironment{OutputCode}{Verbatim}{breaklines,commandchars=\\\{\}}
 ---
 
 # Problem 1: Explain Your Inspiration
@@ -59,6 +65,7 @@ library(scales)
 
 ```{r}
 #| label: reading in data
+#| message: false
 
 veg <- read_csv(here("data", "raw", "veg.csv"))
 
@@ -117,7 +124,9 @@ cover_explicit0 <- veg |>
 
 # summarise mean percent cover by year across all transects
 cover_summary <- cover_explicit0 |>
+  # groupy by year and cover category
   group_by(year, cover_category) |>
+  # calculate mean pc; drop the groups
   summarise(mean_pc = mean(mean_pc, na.rm = TRUE), .groups = "drop")
 
 # check result
@@ -145,26 +154,38 @@ accent_coral  <- "#E8503A"   # accent color for annotation lines
 
 # extract 2025 endpoint value from native for direct line labels
 val_native_2025 <- cover_summary |>
+  # filter to only include 2025 and Native Cover 
   filter(year == 2025, cover_category == "NATIVE COVER") |>
+  # extract mean_pc as a vector
   pull(mean_pc) |>
+  # round to 1 decimal place
   round(1)
 
 # extract 2025 endpoint value from non-native for direct line labels
 val_nonnative_2025 <- cover_summary |>
+  # filter to only include 2025 and Native Cover 
   filter(year == 2025, cover_category == "NON-NATIVE COVER") |>
+  # extract mean_pc as a vector
   pull(mean_pc) |>
+  # round to 1 decimal place
   round(1)
 
 # extract peak value from native for annotation lines
 val_native_2023 <- cover_summary |>
+  # filter to only include 2025 and Native Cover
   filter(year == 2023, cover_category == "NATIVE COVER") |>
+  # extract mean_pc as a vector
   pull(mean_pc) |>
+  # round to 1 decimal place
   round(1)
 
 # extract peak value from non-native for annotation lines
 val_nonnative_2024 <- cover_summary |>
+  # filter to only include 2025 and Native Cover
   filter(year == 2024, cover_category == "NON-NATIVE COVER") |>
+  # extract mean_pc as a vector
   pull(mean_pc) |>
+  # round to 1 decimal place
   round(1)
 
 # build title text with inline color styling - taken from inspiration
