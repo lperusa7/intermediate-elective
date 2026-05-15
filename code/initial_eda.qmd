@@ -353,7 +353,28 @@ p
 
 ## d. Saving Figure
 
+```{r}
+#| label: save
+#| warning: false
+#| message: false
 
+# save final figure as png to outputs folder
+ggsave(
+  filename = here("outputs", "native_nonnative_cover.png"),
+  plot = p,
+  width = 6,
+  height = 7,
+  dpi = 320
+)
+```
 
 # Problem 4: Describe Your Process
 
+**Process:**
+Rather than forking the repository, I copied the relevant code directly from Steven Ponce's publicly available visualization and used it as a reference while building my own figure in a separate .qmd file. I replaced his data, variables, and custom utility functions with my own, keeping the core structure, geometry, and theme elements as close to the original as possible.
+
+**Challenges:**
+The main challenges involved adapting code that relied on custom utility functions (get_theme_colors(), setup_fonts(), create_dcc_caption()) that were not accessible from his repository, which required replacing them with base R and ggplot2 equivalents. Additionally, wrangling the vegetation data to calculate accurate mean percent cover required careful decisions about how to handle implicit zeros, specifically, whether to divide by the number of quadrats sampled or only those with recorded observations. Positioning the annotation text without overlapping the lines was also difficult given the compressed 5-year x-axis range.
+
+**Differences from class:**
+This visualization is more sophisticated than any of the figures we have produced in class or for any previous assignments, primarily because it prioritizes storytelling and aesthetics alongside data accuracy. Previous figures focused on clearly communicating patterns with minimal customization, while this figure uses a dark background, colored markdown titles, direct line labels, and annotated callouts to guide the reader toward a specific narrative conclusion about native and non-native vegetation trends at NCOS.
