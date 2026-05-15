@@ -1,6 +1,7 @@
 ---
-title: "Exploratory Data Analysis"
+title: "ENV S 193DD: Intermediate Elective Option 2"
 author: "Lukas Lescano"
+date: "2026-05-14"
 format: 
   pdf:
     include-in-header: 
@@ -150,7 +151,6 @@ text_white    <- "#FFFFFF"   # white for title text
 text_muted    <- "#8A98A8"   # muted blue-grey for axis text
 text_sub      <- "#B0B8C4"   # lighter muted for subtitle
 grid_color    <- "#1A2E42"   # dark blue for manual grid lines
-accent_coral  <- "#E8503A"   # accent color for annotation lines
 
 # extract 2025 endpoint value from native for direct line labels
 val_native_2025 <- cover_summary |>
@@ -172,7 +172,7 @@ val_nonnative_2025 <- cover_summary |>
 
 # extract peak value from native for annotation lines
 val_native_2023 <- cover_summary |>
-  # filter to only include 2025 and Native Cover
+  # filter to only include 2023 and Native Cover
   filter(year == 2023, cover_category == "NATIVE COVER") |>
   # extract mean_pc as a vector
   pull(mean_pc) |>
@@ -181,7 +181,7 @@ val_native_2023 <- cover_summary |>
 
 # extract peak value from non-native for annotation lines
 val_nonnative_2024 <- cover_summary |>
-  # filter to only include 2025 and Native Cover
+  # filter to only include 2024 and Native Cover
   filter(year == 2024, cover_category == "NON-NATIVE COVER") |>
   # extract mean_pc as a vector
   pull(mean_pc) |>
@@ -410,11 +410,14 @@ ggsave(
 
 # Problem 4: Describe Your Process
 
-**Process:**
+## Process
+
 Rather than forking the repository, I copied the relevant code directly from Steven Ponce's publicly available visualization and used it as a reference while building my own figure in a separate .qmd file. I replaced his data, variables, and custom utility functions with my own, keeping the core structure, geometry, and theme elements as close to the original as possible.
 
-**Challenges:**
+## Challenges
+
 The main challenges involved adapting code that relied on custom utility functions (get_theme_colors(), setup_fonts(), create_dcc_caption()) that were not accessible from his repository, which required replacing them with base R and ggplot2 equivalents. Additionally, wrangling the vegetation data to calculate accurate mean percent cover required careful decisions about how to handle implicit zeros, specifically, whether to divide by the number of quadrats sampled or only those with recorded observations. Positioning the annotation text without overlapping the lines was also difficult given the compressed 5-year x-axis range.
 
-**Differences from class:**
+## Differences from class
+
 This visualization is more sophisticated than any of the figures we have produced in class or for any previous assignments, primarily because it prioritizes storytelling and aesthetics alongside data accuracy. Previous figures focused on clearly communicating patterns with minimal customization, while this figure uses a dark background, colored markdown titles, direct line labels, and annotated callouts to guide the reader toward a specific narrative conclusion about native and non-native vegetation trends at NCOS.
