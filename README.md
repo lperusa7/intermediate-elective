@@ -12,13 +12,13 @@ at UCSB to create a figure inspired by Steven Ponce's
 
 - `data/raw/veg.csv`: raw vegetation survey data from NCOS (2021-2025)
 - `data/raw/vp_veg_metadata.csv`: transect metadata including number of quadrats per transect per year
-- `code/intermediate-elective.qmd`: main analysis and visualization code
-- `code/intermediate-elective.pdf`: rendered PDF output
+- `code/intermediate-elective-option-2.qmd`: main analysis and visualization code
+- `code/intermediate-elective-option-2.pdf`: rendered PDF output
 - `outputs/native_nonnative_cover.png`: final saved figure
 - `outputs/sketch.jpg`: hand-drawn sketch of planned figure (Problem 2)
 
 ## Rendered output
 
-[Link to rendered PDF](https://github.com/lperusa7/intermediate-elective/blob/main/code/initial_eda.pdf)
+[Link to rendered PDF](https://github.com/lperusa7/intermediate-elective/blob/main/code/intermediate-elective-option-2.pdf)
 
 ![Final figure](outputs/native_nonnative_cover.png)
